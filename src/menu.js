@@ -153,6 +153,16 @@ export class MenuBar extends PureComponent {
   }
   static propTypes = {
     menu: PropTypes.array,
+    onVisibilityChange: PropTypes.func,
+  }
+  componentDidUpdate(_, prevState) {
+    if (prevState.clicked === this.state.clicked) {
+      return
+    }
+
+    if (this.props.onVisibilityChange) {
+      this.props.onVisibilityChange(this.state.clicked)
+    }
   }
   onButtonMouseOver = (i) => {
     if (this.state.clicked) this.setState({ focusing: i })
